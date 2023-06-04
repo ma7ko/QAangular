@@ -1,0 +1,31 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-9">
+            <div *ngFor="let question of pageableItem.content">
+                <app-question-term class="questionTerm"
+                    [questionTerm]="question"
+                    (deleteQuestionEmitter)="deleteQuestion($event)"
+                    (reactedToQuestion)="reloadList($event)">
+                </app-question-term>
+                <!-- handle on delete action -->
+                <!-- handle on edit action -->
+                <!-- handle show question details -->
+                <!-- handle like question -->
+                <!-- handle dislike question -->
+            </div>
+            <div class='m-5'>
+                <app-pagination #pagination
+                                [totalCount]="this.pageableItem.totalCount ?? 0" 
+                                [currentAmount]="this.pageableItem.count ?? 2" 
+                                (pageChanged)="this.changePage($event)"></app-pagination>
+                <!-- send total number of posts -->
+                <!-- send number of posts per page -->
+                <!-- send current page number -->
+                <!-- main page separates pagination for questions and answers -->
+            </div>
+
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="card mt-4">
+    <div class="card-header header-card">
+        <div class="fl-cont">
+            <div class="fl-item">
+                <div class='mt-1'>{{ term.username ?? 'in progress' }}</div>
+            </div>
+            <div class="fl-item">
+                <div> 
+                    <!-- ngIf this is question of the currently logged user or the user is admin -->
+                    <!-- show edit and delete buttons for this answer -->
+                    <div class='header-buttons'>
+                        <a title="Delete" class="btn btn-danger" (click)="onAnswerDelete(term.id, questionId)"> Delete </a>
+                        <button class="btn btn-info ml-2"
+                            (click)="onAnswerEdit(term.id)">
+                            Edit
+                        </button>
+                        <!-- for edit button add logic to hide static answer and display form answer -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class='border-bottom mb-3'>
+        <p id=`static${props.term.id}${props.questionId}`>{{ term.explanation }}</p>
+        <div id=`form${props.term.id}${props.questionId}` class="hide" >
+
+            <app-answer-form></app-answer-form>
+            <!-- questionId={props.questionId}
+                        numberOfRows="4"
+                        answer={props.term}
+                        onEditAnswer={props.onEditAnswer}
+                        currentUser={props.currentUser}
+                        props={props.props}
+                        toogleButton={() => {document.getElementById(`form${props.term.id}${props.questionId}`).classList.toggle("hide"); document.getElementById(`static${props.term.id}${props.questionId}`).classList.toggle("hide");}}/> -->
+
+        </div>
+        </div>
+        <div class='main-fl'>
+            <div class='fl-ch'>
+                {{ term.posted ? term.posted.split('T')[0] : '' }}
+            </div>
+            <div class='fl-ch'>
+                    <div class="small-icon overr2">
+                        <div class="items-icon overr">
+                            <div class='innermost'>
+                                <i class="fa fa-thumbs-up"></i>
+                                            <!-- add on click event for thumbs up button -->
+                                            <!-- add hover styling on button-->
+                                            <!-- add styling when logged in user liked the question -->
+                            </div>
+                            <div class='innermost'>{{ term.likes }}</div>
+                        </div>
+                        <div class="items-icon overr">
+                            <i class="fa fa-thumbs-down"></i>
+                                            <!-- add on click event for thumbs down button -->
+                                            <!-- add hover styling on button-->
+                                            <!-- add styling when logged in user disliked the question -->
+                            <div class='innermost'>{{ term.dislikes }}</div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

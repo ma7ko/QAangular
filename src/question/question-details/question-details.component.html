@@ -1,0 +1,91 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mt-4">
+                <h5 class="card-header">{{ this.question.title }} - {{ this.question.username }}</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            {{ this.question.description }}
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="small-icon">
+                                <div class="items-icon">
+                                    <div class='innermost'>
+                                        <i class="fa fa-thumbs-up"></i>
+                                        <!-- add on click event for thumbs up button -->
+                                        <!-- add hover styling on button-->
+                                        <!-- add styling when logged in user liked the question -->
+                                        <div class='innermost'>{{ this.question.likes }}</div>
+                                    </div>
+                                </div>
+                                <div class="items-icon">
+                                    <div class='innermost'>
+                                        <i class="fa fa-thumbs-down"></i>
+                                        <!-- add on click event for thumbs down button -->
+                                        <!-- add hover styling on button-->
+                                        <!-- add styling when logged in user disliked the question -->
+                                        <div class='innermost'>{{ this.question.dislikes }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-md-12 mt-4'>
+                    <div>{{ (_userService.loggedUser$ | async)?.username }}</div>
+                    <div class="container mt-4">
+                        <app-answer-form
+                            [questionId]="question.id ?? 1"
+                            [username]="(_userService.loggedUser$ | async)?.username ?? ''">
+                            <!-- parameters that were previously passed -->
+                            <!-- questionId -->
+                            <!-- numberOfRows -->
+                            <!-- currentUser -->
+                            <!-- event onAddAnswer -->
+                        </app-answer-form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class='mt-4'>
+                <div class='small-icon'>
+                    <h4>Answers</h4>
+                    <app-pagination></app-pagination>
+                    <!-- send total number of posts -->
+                    <!-- send number of posts per page -->
+                    <!-- send current page number -->
+                    <!-- main page separates pagination for questions and answers -->
+                </div>
+            </div>
+            <div class="container box-fix">
+                <div *ngFor="let answer of answerList">
+                    <app-answer-term [term]="answer"></app-answer-term>
+                    <!-- previous parameters and events -->
+                    <!--key={`${term.id}${term.question.id}`}
+                                            term={term}
+                                        questionId={this.props.props.match.params.id}
+                                        onAnswerDelete={this.props.onAnswerDelete}
+                                        onAnswerEdit={this.props.onAnswerEdit}
+                                        onEditAnswer={this.props.onEditAnswer}
+                                        onAddAnswer={this.props.onAddAnswer}
+                                        likeAnswer={this.props.likeAnswer}
+                                        dislikeAnswer={this.props.dislikeAnswer}
+                                        currentUser={this.props.currentUser}
+                                        props={this.props.props}-->
+                </div>
+
+                <div *ngIf="this.answerList?.length === 0">
+                    <div class='not-found text-center'> <i class="fa fa-feather-alt fa-4x"></i>
+                        <p class='text-center'>No answers yet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

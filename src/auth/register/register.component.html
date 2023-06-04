@@ -1,0 +1,50 @@
+<div class="col-md-12">
+    <div class="reg-card card card-container">
+        <img
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            alt="profile-img"
+            class="profile-img-card"
+        />
+
+        <form [formGroup]="registerFormGroup" (ngSubmit)="submitForm($event)">
+            <div>
+                <div class="form-group">
+                    <label class="reg-label" htmlFor="username">Username</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="username"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label class="reg-label" htmlFor="email">Email</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="email"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label class="reg-label" htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        formControlName="password"
+                    />
+                </div>
+
+                <div class="form-group mt-3">
+                    <button class="btn btn-primary btn-block w-100">Sign Up</button>
+                </div>
+            </div>
+        </form>
+
+        <div *ngIf="responseMessage" class="form-group mt-2">
+            <div [ngClass]="{ 'alert alert-success' : responseSuccess, 'alert alert-danger' : !responseSuccess }">
+                {{ responseMessage }}
+            </div>
+        </div>
+    </div>
+</div>

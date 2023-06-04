@@ -1,0 +1,10 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination pagination-md justify-content-center">
+    <li [ngClass]="{ 'active' : page == pageNum }" class="page-item" *ngFor="let pageNum of this.arrayHelper">
+        <a class="page-link" data-id="{{ this.arrayHelper[pageNum] }}" href="#"
+            (click)="this.changePage($event)">
+            {{ pageNum + 1 }}
+        </a>
+    </li>
+    </ul>
+</nav>

@@ -1,0 +1,99 @@
+<div *ngIf="question" class="card questionTerm">
+    <div class="card-header text-center header-card">
+        <div class="row">
+            <div class="col-xl-10 col-lg-9 col-sm-8 col-7">
+                <ul *ngIf="question.tags" class="nav nav-pills card-header-pills tags">
+                    <li *ngFor="let tag of question.tags.slice(0,2)" class="nav-item tags">
+                        <h3 class="m-1"><span class="badge bg-info mr-2 ml-2 text-light">{{ tag }}</span></h3>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-sm-4 col-5">
+                <!-- should be displayed if the user that is currently logged in is the one who posted the question -->
+                <!-- or if the user that is currently logged in is of role ADMIN -->
+                <div *ngIf="question.username == (this._userService.loggedUser$ | async)?.username ?? ''" class="h-100">
+                    <div class="d-none d-sm-flex justify-content-evenly">
+                        <div>
+                            <a title="Delete" class="btn btn-secondary" (click)="onDelete()">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                        <div>
+                            <button [routerLink]="'/questions/edit/' + question.id" class="btn btn-secondary ml-2">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-flex d-sm-none justify-content-evenly h-100">
+                        <div class="h-100 d-flex align-items-center">
+                            <a title="Delete" class="btn btn-secondary btn-sm" (click)="onDelete()">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                        <div class="h-100 d-flex align-items-center">
+                            <button [routerLink]="'/questions/edit/' + question.id" class="btn btn-secondary btn-sm ml-2">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="card-body m-1">
+        <div class="row">
+            <div class="col-md-8 col-lg-9">
+                <h5 class="card-title">{{ question.title }} - {{ question.username }}</h5>
+                <p class="card-text">{{ question.description }}</p>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="card mt-3 mb-3 card-review">
+                    <div class="card-header">
+                        <p class="reviews-header text-center">Reviews</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="small-icon">
+                            <div class="items-icon">
+                                <div (click)="like($event)" [ngClass]="{ 'clicked' : question.likedBy?.includes((this._userService.loggedUser$ | async)?.username ?? '') }" class='innermost'>
+                                    <i class="fa fa-thumbs-up"></i>
+                                    <!--<FontAwesomeIcon class={props.term?.likedByUsers?.map(term1=>
+                                        term1.username).includes(props.currentUser?.username) ? "change-color
+                                        custom-size" : 'custom-size'} onMouseOut={(e) =>
+                                        {!props.term?.likedByUsers?.map(term1 =>
+                                        term1.username).includes(props.currentUser?.username) &&
+                                        e.target.classList.remove("change-color")}} onMouseOver={(e) => {
+                                        console.log(e.target); e.target.classList.add("change-color")}} onClick={() =>
+                                        {props.likeQuestion(props.term.id, props.currentUser?.username)}}
+                                        icon={faThumbsUp}/>-->
+                                </div>
+                                <div class='innermost'>{{ question.likes }}</div>
+                            </div>
+                            <div class="items-icon">
+                                <div (click)="dislike($event)" [ngClass]="{ 'clicked' : question.dislikedBy?.includes((this._userService.loggedUser$ | async)?.username ?? '') }" class='innermost'>
+                                    <i class="fa fa-thumbs-down"></i>
+                                    <!--<FontAwesomeIcon class={props.term?.dislikedByUsers?.map(term1=>
+                                        term1.username).includes(props.currentUser?.username) ? "change-color
+                                        custom-size" : 'custom-size'} onMouseOut={(e) =>
+                                        {!props.term?.dislikedByUsers?.map(term1 =>
+                                        term1.username).includes(props.currentUser?.username) &&
+                                        e.target.classList.remove("change-color")}} onMouseOver={(e) => {
+                                        console.log(e.target); e.target.classList.add("change-color")}} onClick={() =>
+                                        {props.dislikeQuestion(props.term.id, props.currentUser?.username)}}
+                                        icon={faThumbsDown}/>-->
+                                </div>
+                                <div class="innermost">{{ question.dislikes }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <!-- should be displayed if the user is logged in -->
+            <!-- this can be done with guards in angular -->
+            <!--onClick={()=> {props.showQuestionDetails(props.term.id); window.scrollTo(0, 0);}}-->
+            <!--to={`/questions/${props.term.id}/details`}-->
+            <button [routerLink]="[ '/questions/details/' + question.id ]" class="btn btn-primary">See more</button>
+        </div>
+    </div>
+</div>

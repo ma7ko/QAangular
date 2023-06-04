@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row m-5">
+        <div class="col-md-5">
+            <div *ngFor="let term of tags"> 
+                <h3>
+                    <span class="badge bg-info"> 
+                        <span> {{ term.name }} </span>
+                        <span id=`${term.id}-tag-remove` 
+                                class="tag-remove-hidden text-info"
+                                (click)="deleteTag($event)"
+                                (mouseout)="hideDeleteIcon($event)"
+                                (mouseover)="showDeleteIcon($event)">
+                            <i data-id="{{term.id}}" class="fa fa-times-circle"></i> 
+                        </span> 
+                    </span>
+                </h3>
+            </div>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-5">
+            <div class="card card-container m-5 p-5 border-primary">
+                <app-tag-form (addedTagEmitter)="saveTag($event)"></app-tag-form>
+            </div>
+        </div>
+    </div>
+</div>

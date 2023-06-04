@@ -1,0 +1,117 @@
+<div class="container">
+    <div class="row m-5">
+        <div class="col-md-4">
+            <form [formGroup]="questionFormGroup" (ngSubmit)="onSubmit($event)">
+                <div>
+                    <div class="form-group">
+                        <label for="title">Question Title</label>
+                        <input type="text"
+                            class="form-control"
+                            id="title"
+                            formControlName="title"
+                            required/>
+                    </div>
+                    <div class="val val-font">
+                        <div *ngIf="questionFormGroup.controls['title'].invalid && (questionFormGroup.controls['title'].dirty || questionFormGroup.controls['title'].touched)"
+                            class="text-danger">
+                            <div *ngIf="questionFormGroup.controls['title'].errors?.['required']">
+                            Title is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea rows="5"
+                              cols="80"
+                              class="form-control"
+                              id="description"
+                              formControlName="description"
+                              required></textarea>
+                    <div class="val val-font">
+                        <div *ngIf="questionFormGroup.controls['description'].invalid && (questionFormGroup.controls['description'].dirty || questionFormGroup.controls['description'].touched)"
+                            class="text-danger">
+                        <div *ngIf="questionFormGroup.controls['description'].errors?.['required']">
+                            Description is required.
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="d-inline-block m-1">
+                        <button type="submit" class="btn btn-success mt-2 mr-2">Submit</button>
+                    </div>
+                    <div class="d-inline-block m-1">
+                        <button [routerLink]="'/'" type="button" class="btn btn-secondary ml-2 mt-2">Back</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-4 mt-4">
+            <div class="container">
+                <div class="card tags-card">
+                    <div class="card-header">Selected tags:
+                    </div>
+                    <div class="card-body">
+
+                        <div *ngIf="selectedTags.length === 0">
+                            <div class='text-center not-found boxes'> <i class="fa fa-tags fa-3x"></i>  <p class='mt-2'>You do not have any selected tags yet</p></div>
+                        </div>
+
+                        <div *ngIf="selectedTags.length">
+                            <div *ngFor="let tag of selectedTags" class='boxes-new-search'>
+                                <button class="badge bg-info btn" (click)="this.removeTag(tag)">
+                                     <h5 class="m-0"><span id="tag" class="badge bg-info">{{ tag }}</span></h5>
+                                </button>
+                            </div>
+                            <!-- <app-pagination></app-pagination> -->
+                            <!-- send total number of posts -->
+                            <!-- send number of posts per page -->
+                            <!-- send current page number -->
+                            <!-- main page separates pagination for questions and answers -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mt-4">
+            <div class="container">
+                <div class="card tags-card">
+                    <div class="card-header">Search tags:
+                        <input id="search-input"
+                            class="form-control mr-sm-2 p-2 mt-2"
+                               type="search"
+                               placeholder="Search"
+                               aria-label="Search"
+                               (change)="onChangeSearchField($event)"/>
+                    </div>
+                    <div class="card-body">
+                        <p class="hide-tag-ids" id="tags"></p>
+
+                        <div *ngIf="this.searchedTags.length === 0"> <!--&& search input is not empty-->
+                            <div class="text-center not-found">
+                                <i class="fa fa-3x fa-exclamation-triangle"></i>
+                                <p class="m-2">The tag you searched for is not found</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div *ngFor="let tag of searchedTags" class="boxes-new-search">
+                                <button type="button" class="badge bg-info btn" (click)="this.addTag(tag)"> <h5 class="m-0"><span id="tag" class="badge bg-info"> {{ tag }} </span></h5> </button>
+                            </div>
+                            <!-- <app-pagination></app-pagination> -->
+                            <!-- send total number of posts -->
+                            <!-- send number of posts per page -->
+                            <!-- send current page number -->
+                            <!-- main page separates pagination for questions and answers -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

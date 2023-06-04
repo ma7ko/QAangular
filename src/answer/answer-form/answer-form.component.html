@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 pb-4">
+            <form (ngSubmit)="onSubmit($event)">
+                    <!-- onSubmit={(e) => {e.preventDefault(); (this.props.answer !== undefined) ?
+                this.editAnswer(this.props.answer.id, this.state.explanation, this.props.answer.likes, this.props.answer.dislikes, this.props.answer.question.id, this.props.answer?.user?.username) :
+                this.saveAnswer(this.state.explanation, this.state.likes, this.state.dislikes, this.props.questionId, this.state.username) }}> -->
+
+                <div class="form-group">
+                    <label htmlFor="explanation">Description</label>
+                    <textarea rows='{{numberOfRows}}'
+                        class="form-control answer-text-box"
+                              id="explanation"
+                              name="explanation"
+                              [(ngModel)]="explanation"
+                              required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button [routerLink]="'/'" type="button" class="btn btn-secondary mr-2"> Back </button>
+            </form>
+        </div>
+    </div>
+</div>

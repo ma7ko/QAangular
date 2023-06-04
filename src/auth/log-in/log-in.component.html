@@ -1,0 +1,47 @@
+<div class="col-md-12">
+    <div class="log-card card card-container">
+        <img
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            alt="profile-img"
+            class="profile-img-card"
+        />
+
+        <form [formGroup]="loginFormGroup" (ngSubmit)="submitForm($event)">
+            <div class="form-group">
+                <label class="log-label" for="username">Username</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="username"
+                />
+            </div>
+
+            <div class="form-group">
+                <label class="log-label" for="password">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    formControlName="password"
+                />
+            </div>
+
+            <div class="form-group mt-3">
+                <button class="btn btn-primary btn-block w-100">
+                    <!-- loading spinner when clicked was shown -->
+                    <span>Login</span>
+                </button>
+            </div>
+        </form>
+
+        <button id="fb-button" class="btn btn-outline-primary mt-3" (click)="getFacebookAccessToken()"> 
+            <i id="fb-icon" class="fa fa-facebook text-primary m-1"></i>
+            <span>Log in With Facebook</span>
+        </button>
+
+        <div *ngIf="responseMessage" class="form-group mt-2">
+            <div class="alert alert-danger" role="alert">
+                    {{ responseMessage }}
+            </div>
+        </div>
+    </div>
+</div>

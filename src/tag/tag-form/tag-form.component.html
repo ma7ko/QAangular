@@ -1,0 +1,12 @@
+<form (ngSubmit)="submitForm($event)" >
+    <div class="form-group">
+        <label for="name">Tag name</label>
+        <input [(ngModel)]="tagName"
+               type="text"
+               class="form-control"
+               id="name"
+               name="name"
+               required/>
+    </div>
+    <button class="btn btn-primary">Submit</button>
+</form>
