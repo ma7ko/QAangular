@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Answer } from 'src/model/answer/Answer';
 import { AnswerService } from 'src/service/answer-service/answer.service';
 
@@ -21,6 +21,12 @@ export class AnswerFormComponent {
   @Input()
   username: string = '';
 
+  @Input()
+  isEdit = false;
+
+  @Output()
+  emitAddedAnswer = new EventEmitter<boolean>();
+
   constructor(private _answerService: AnswerService) {}
 
   onSubmit(event: Event) {
@@ -37,6 +43,7 @@ export class AnswerFormComponent {
 
     this._answerService.addAnswer(answerDTO).subscribe((success) => {
       console.log('Successfully added answer');
+      this.emitAddedAnswer.emit(true);
     }, (error) => {
       console.log('There was an error adding answer');
       console.log(error);

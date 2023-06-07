@@ -4,15 +4,30 @@ import { Observable } from 'rxjs';
 import { API_URL, CREATE_URL, DELETE_URL, QUESTIONS_URL, UPDATE_URL } from '../route-constants/route-constants';
 import { Question } from 'src/model/question/Question';
 import { BaseTermService } from '../base-term-service/base-term.service';
+import { UserService } from '../user-service/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService extends BaseTermService {
 
-  constructor(private httpCient: HttpClient) {
+  constructor(private httpCient: HttpClient,
+              private _userService: UserService) {
     super(httpCient);
     this.term = QUESTIONS_URL;
+  }
+
+  protected override buildHeaders(): HttpHeaders { 
+    var httpHeaders: HttpHeaders = new HttpHeaders();
+    this._userService.loggedUser();
+    this._userService.loggedUser$.subscribe(user => {
+        httpHeaders = new HttpHeaders({
+          'Access-Control-Allow-Origin': '*',
+          'Authorization': 'Bearer' + ' ' + user.accessToken
+         });
+    });
+
+    return httpHeaders;
   }
 
   public listQuestions(page: number): Observable<any> {

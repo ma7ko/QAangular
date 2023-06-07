@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 import { SharedRoutingModule } from './shared-routing.module';
 import { PaginationComponent } from './pagination/pagination.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
   declarations: [
     PaginationComponent,
-    NavigationComponent
+    NavigationComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { NavigationComponent } from './navigation/navigation.component';
   ],
   exports: [
     PaginationComponent,
-    NavigationComponent
+    NavigationComponent,
+    ModalComponent
   ]
 })
 export class SharedModule { }

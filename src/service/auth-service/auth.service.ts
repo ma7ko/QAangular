@@ -6,6 +6,7 @@ import { LogInRequest } from './payload/login-request';
 import { FacebookLogInRequest } from './payload/facebook-login-request';
 import { RegisterRequest } from './payload/register-request';
 import { API_URL, AUTH_URL, FACEBOOK_URL, SIGN_IN_URL, SIGN_UP_URL } from '../route-constants/route-constants';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthService {
   private loggedUserSubject = new BehaviorSubject<User>({});
   loggedUser$: Observable<User> = this.loggedUserSubject.asObservable();
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private jwtHelperService: JwtHelperService) { }
 
   protected buildHeaders(): HttpHeaders {
     return new HttpHeaders({
@@ -49,5 +51,9 @@ export class AuthService {
   public logout() {
     localStorage.removeItem('user');
     this.loggedUserSubject.next({});
+  }
+
+  public isTokenExpired(token: string) {
+    return this.jwtHelperService.isTokenExpired(token);
   }
 }

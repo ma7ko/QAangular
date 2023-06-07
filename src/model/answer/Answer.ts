@@ -6,10 +6,10 @@ export interface Answer {
     explanation?: string;
     likes?: number;
     dislikes?: number;
-    posted?: string;
-    lastEdited?: string;
+    datePosted?: string;
+    dateLastEdited?: string;
     questionId?: number;
     username?: string;
-    likedByUsers?: User[];
-    dislikedByUsers?: User[];
+    likedBy?: string[];
+    dislikedBy?: string[];
 }

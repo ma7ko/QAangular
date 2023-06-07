@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseTermService } from '../base-term-service/base-term.service';
 import { ANSWERS_URL, API_URL, CREATE_URL, DELETE_URL, QUESTIONS_URL, UPDATE_URL } from '../route-constants/route-constants';
@@ -16,7 +16,7 @@ export class AnswerService extends BaseTermService {
     this.term = ANSWERS_URL;
   }
 
-  protected buildAuthHeaders(): HttpHeaders { 
+  protected override buildHeaders(): HttpHeaders { 
     var httpHeaders: HttpHeaders = new HttpHeaders();
     this._userService.loggedUser();
     this._userService.loggedUser$.subscribe(user => {
@@ -29,9 +29,12 @@ export class AnswerService extends BaseTermService {
     return httpHeaders;
   }
 
-  public findAnswersByQuestionId(questionId: number) {
+  public findAnswersByQuestionId(questionId: number, page: number) {
     const headers = this.buildHeaders();
-    return this.httpClient.get(`${API_URL}/${QUESTIONS_URL}/${questionId}/${ANSWERS_URL}`, {headers: headers});
+    var queryParams = new HttpParams();
+    queryParams = queryParams.append('page', page);
+    queryParams = queryParams.append('size', 2);
+    return this.httpClient.get(`${API_URL}/${QUESTIONS_URL}/${questionId}/${ANSWERS_URL}`, {headers: headers, params: queryParams});
   }
 
   public findAnswerById(answerId: number) {
@@ -40,7 +43,7 @@ export class AnswerService extends BaseTermService {
   }
 
   public addAnswer(answer: Answer) {
-    const headers = this.buildAuthHeaders();
+    const headers = this.buildHeaders();
     return this.httpClient.post(`${API_URL}/${ANSWERS_URL}/${CREATE_URL}`, answer, {headers: headers});
   }
 

@@ -48,6 +48,19 @@
     flex-grow: 4;
 }
 
+.innermost:first-child:hover {
+    color: #dddd22;
+}
+
+.clicked {
+    color:#cccc11;
+}
+
+.spinner-style {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+}
 
 
 

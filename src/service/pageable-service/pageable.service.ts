@@ -16,22 +16,22 @@ export class PageableService {
   currentPage: number = 0;
   pageableItem: PageableItem = {};
 
-  changePage(value: number, route: string) {
+  changePage(value: number, route: string, questionId?: number) {
     if (this.currentPage != value || this.currentPage == 0) {
      this.pageableItem = {};
-     this.getPage(value, route);
+     this.getPage(value, route, questionId);
     }
     return this.pageableItem;
   }
 
-  async getPage(page: number, route: string) {
+  async getPage(page: number, route: string, questionId?: number) {
     switch(route) {
       case 'question':
         const questionResult = await lastValueFrom(this._questionService.listQuestions(page));
         this.pageableItem = questionResult;
         break;
       case 'answer':
-        const answerResult = await lastValueFrom(this._answerService.findAnswersByQuestionId(page));
+        const answerResult = await lastValueFrom(this._answerService.findAnswersByQuestionId(questionId ?? 0, page));
         this.pageableItem = answerResult;
         break;
     }

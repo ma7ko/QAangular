@@ -35,12 +35,18 @@ export class QuestionFormComponent implements OnInit {
       this.question = {};
     }
     if (this._route.snapshot.data["question"]) {
-      this.question = this._route.snapshot.data["question"];
-      console.log(this.question);
+      this.question = this._route.snapshot.data["question"][0];
+      this.searchedTags = this._route.snapshot.data["question"][1];
+      this.selectedTags = this._route.snapshot.data["question"][0]["tags"];
+    }
+
+    console.log(this._route.snapshot.data["tags"]);
+    if (this._route.snapshot.data["tags"]) {
+      this.searchedTags = this._route.snapshot.data["tags"];
     }
 
     this.initQuestion();
-    this.initTags();
+    //this.initTags();
   }
 
   initQuestion() {

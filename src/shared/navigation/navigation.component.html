@@ -15,7 +15,7 @@
                 <a [routerLink]="'/questions/create'" class="nav-link">Ask question</a>
             </li>
             <!-- display this if user is admin -->
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="(_userService.loggedUser$ | async)?.username">
                 <a [routerLink]="'/tags'" class="nav-link">Tags</a>
             </li>
         </ul>

@@ -1,0 +1,28 @@
+<div class="modal fade" [id]="modalID" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <i class="fa fa-times"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ng-content></ng-content>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ cancelButtonText }}</button>
+                <button type="button" class="btn btn-primary" (click)="submitted($event)">
+                    <div class="d-flex justify-content-evenly align-items-center gap-2">
+                        <span>{{ confirmButtonText }}</span>
+                        <div *ngIf="submitClicked" class="spinner-border spinner-border-sm text-light" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

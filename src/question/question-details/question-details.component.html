@@ -13,22 +13,22 @@
                         <div class="col-md-4">
                             <div class="small-icon">
                                 <div class="items-icon">
-                                    <div class='innermost'>
+                                    <div (click)="like($event)" [ngClass]="{ 'clicked' : question.likedBy?.includes((this._userService.loggedUser$ | async)?.username ?? '') }" class='innermost'>
                                         <i class="fa fa-thumbs-up"></i>
                                         <!-- add on click event for thumbs up button -->
                                         <!-- add hover styling on button-->
                                         <!-- add styling when logged in user liked the question -->
-                                        <div class='innermost'>{{ this.question.likes }}</div>
                                     </div>
+                                    <div class='innermost'>{{ this.question.likes }}</div>
                                 </div>
                                 <div class="items-icon">
-                                    <div class='innermost'>
+                                    <div (click)="dislike($event)" [ngClass]="{ 'clicked' : question.dislikedBy?.includes((this._userService.loggedUser$ | async)?.username ?? '') }" class='innermost'>
                                         <i class="fa fa-thumbs-down"></i>
                                         <!-- add on click event for thumbs down button -->
                                         <!-- add hover styling on button-->
                                         <!-- add styling when logged in user disliked the question -->
-                                        <div class='innermost'>{{ this.question.dislikes }}</div>
                                     </div>
+                                    <div class='innermost'>{{ this.question.dislikes }}</div>
                                 </div>
                             </div>
                         </div>
@@ -40,8 +40,10 @@
                     <div>{{ (_userService.loggedUser$ | async)?.username }}</div>
                     <div class="container mt-4">
                         <app-answer-form
+                            #addForm
                             [questionId]="question.id ?? 1"
-                            [username]="(_userService.loggedUser$ | async)?.username ?? ''">
+                            [username]="(_userService.loggedUser$ | async)?.username ?? ''"
+                            (emitAddedAnswer)="reloadAnswers($event)">
                             <!-- parameters that were previously passed -->
                             <!-- questionId -->
                             <!-- numberOfRows -->

@@ -20,6 +20,6 @@ export class QuestionDetailsResolverService implements Resolve<any> {
   }
 
   private getAnswersObservable(route: ActivatedRouteSnapshot): Observable<any> {
-    return this.answerService.findAnswersByQuestionId(route.params['id']);
+    return this.answerService.findAnswersByQuestionId(route.params['id'], 0);
   }
 }

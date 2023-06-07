@@ -57,9 +57,13 @@ export class QuestionTermComponent implements OnInit, OnDestroy {
     }
   }
 
-  onDelete() {
-    let questionId = this.question.id;
-    this.deleteQuestionEmitter.emit(questionId);
+  onDelete(isConfirm: boolean, questionId: number | undefined) {
+    console.log(questionId);
+    return;
+    /*if (isConfirm && questionId)
+      this._questionService.deleteQuestion(questionId).subscribe((response) => {
+        location.reload();
+      });*/
   } 
 
   ngOnDestroy(): void {
